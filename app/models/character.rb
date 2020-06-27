@@ -1,3 +1,3 @@
 class Character < ApplicationRecord
-    belong_to :anime
+    belongs_to :anime
 end
