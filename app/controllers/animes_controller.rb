@@ -5,11 +5,21 @@ class AnimesController < ApplicationController
     def index
         @animes = Anime.all
 
-        render json: @animes.as_json(include: {characters: {only: [:name, :powers, :description, :id]}})
+        render json: @animes.as_json(include: {characters: {only: [:name, :powers, :description, :anime_id, :id]}})
     end
 
     def show
-        render json: @anime.as_json(include: {piglets: {only:[:id, :name, :color, :sex, :cuteness_factor]}})
+        render json: @anime.as_json(include: {characters: {only:[:name, :powers, :description, :anime_id, :id]}})
+    end
+
+    def create
+        @anime = Anime.new(anime_params)
+    
+        if @anime.save
+            render json: @anime, status: :created, location: @anime
+        else
+            render json: @anime.errors, status: :unprocessable_entity
+        end
     end
 
 

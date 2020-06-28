@@ -19,5 +19,5 @@ Character.create([{
     name: "Zero Two",
     powers: "Half human, half klaxosaur",
     description: "Zero Two, also known as Code:002 or Nine Iota is a fictional character in Darling in the Franxx,",
-    anime_id: 1,
+    anime_id: 5,
 }])
