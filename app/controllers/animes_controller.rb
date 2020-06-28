@@ -16,10 +16,22 @@ class AnimesController < ApplicationController
         @anime = Anime.new(anime_params)
     
         if @anime.save
-            render json: @anime, status: :created, location: @anime
+            render json: @anime.as_json(include: {characters: {only:[:name, :powers, :description, :anime_id, :id]}})
         else
             render json: @anime.errors, status: :unprocessable_entity
         end
+    end
+
+    def update
+        if @anime.update(anime_params)
+            render json: @anime
+        else
+            render json: @anime.errors, status: :unprocessable_entity
+        end
+    end
+    
+    def destroy
+        @anime.destroy
     end
 
 
@@ -27,5 +39,9 @@ class AnimesController < ApplicationController
     
     def set_anime
         @anime = Anime.find(params[:id])
+    end
+
+    def anime_params
+        params.require(:anime).permit(:title, :genre, :summary, :rating, :favorite, :image)
     end
 end
