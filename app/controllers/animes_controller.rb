@@ -4,7 +4,7 @@ class AnimesController < ApplicationController
 
     def index
         @animes = Anime.all
-
+        
         render json: @animes.as_json(include: {characters: {only: [:name, :powers, :description, :anime_id, :id]}})
     end
 
@@ -18,7 +18,7 @@ class AnimesController < ApplicationController
         if @anime.save
             render json: @anime.as_json(include: {characters: {only:[:name, :powers, :description, :anime_id, :id]}})
         else
-            render json: @anime.errors, status: :unprocessable_entity
+            render json: @anime.errors
         end
     end
 
@@ -26,7 +26,7 @@ class AnimesController < ApplicationController
         if @anime.update(anime_params)
             render json: @anime
         else
-            render json: @anime.errors, status: :unprocessable_entity
+            render json: @anime.errors
         end
     end
     
