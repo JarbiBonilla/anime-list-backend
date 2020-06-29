@@ -14,7 +14,6 @@ class AnimesController < ApplicationController
 
     def create
         @anime = Anime.new(anime_params)
-    
         if @anime.save
             render json: @anime.as_json(include: {characters: {only:[:name, :powers, :description, :anime_id, :id]}})
         else
@@ -42,6 +41,6 @@ class AnimesController < ApplicationController
     end
 
     def anime_params
-        params.require(:anime).permit(:title, :genre, :summary, :rating, :favorite, :image)
+        params.require(:anime).permit(:title, :genre, :summary, :rating, :favorite, :image, characters_attributes: [:name, :powers, :description, :anime_id])
     end
 end
